@@ -1,0 +1,6 @@
+export const sequelizeConfig =  {
+  'config': './src/infrastructure/database/config/config.ts',
+  'models-path': './src/db/models/',
+  'migrations-path': './src/db/migrations/',
+  'seeders-path': './src/db/seeders/'
+}
