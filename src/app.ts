@@ -23,7 +23,7 @@ const allowedHeaders = [
 
 const corsOptions = {
   origin: function (origin: any, callback: any) {
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+    if (allowedOrigins.includes(origin) || origin === undefined || origin === null) {
       callback(null, true)
     } else {
       callback(new Error('Not allowed by CORS'))

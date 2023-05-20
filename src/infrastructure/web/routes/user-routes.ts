@@ -16,8 +16,51 @@ const userController: UserController = new UserController(userService)
 const router = Router()
 
 router.post('/', checkRoles(roles.ADMIN), userController.createUser.bind(userController))
+
+/**
+ * @openapi
+ * /api/v1/users/owner:
+ *    post:
+ *      tags:
+ *        - User
+ *      summary: "Create a new owner user"
+ *      description: Create an owner user by validating in Administrator profile
+ *      requestBody:
+ *          content:
+ *            application/json:
+ *              schema:
+ *                 $ref: "#/components/schemas/User"
+ *            application/xml:
+ *              schema:
+ *                $ref: '#/components/schemas/User'
+ *            application/x-www-form-urlencoded:
+ *              schema:
+ *                $ref: '#/components/schemas/User'
+ *      responses:
+ *        '200':
+ *          description: Successful operation
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: "#/components/schemas/User"
+ *            application/xml:
+ *              schema:
+ *                $ref: '#/components/schemas/User'
+ *        '400':
+ *          description: "Error: Bad Request"
+ *        '401':
+ *          description: "Error: Unauthorized"
+ *        '403':
+ *          description: "Error: Forbidden"
+ *        '409':
+ *          description: "Error: Conflict"
+ *      security:
+ *        - bearerAuth: []
+ */
 router.post('/owner',
-// checkRoles(roles.ADMIN),
   userController.createOwner.bind(userController))
+router.post('/employee',
+// checkRoles(roles.ADMIN),
+  userController.createEmployee.bind(userController))
 
 export default router

@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from 'express'
 import RoleService from './../../../application/services/role-service'
 
-import { CreateRoleDto } from './../../../application/dtos/role-dto'
+import { IRoleDTO } from './../../../application/dtos/role-dto'
 
 class RoleController {
-  private roleService: RoleService
+  private readonly roleService: RoleService
 
   constructor (roleService: RoleService) {
     this.roleService = roleService
@@ -13,11 +13,10 @@ class RoleController {
   async createRole (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { name, description } = req.body
-      const roleDto: CreateRoleDto = {
+      const roleDto: IRoleDTO = {
         name,
         description
       }
-      console.log(roleDto)
       const role = await this.roleService.createRole(roleDto)
       res.status(200).json(role)
     } catch (error) {

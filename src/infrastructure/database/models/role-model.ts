@@ -1,8 +1,6 @@
-import { Model, DataTypes, Optional } from 'sequelize'
+import { Model, DataTypes } from 'sequelize'
 import { Role as RoleDomain } from './../../../domain/models/role'
 export const ROLE_TABLE = 'roles'
-
-export type RoleCreationAttributes = Optional<RoleDomain, 'id'>
 
 export const RoleSchema = {
   id: {
@@ -28,13 +26,13 @@ export const RoleSchema = {
   }
 }
 
-class Role extends Model<RoleDomain, RoleCreationAttributes> implements RoleDomain {
+class Role extends Model<RoleDomain, RoleDomain> implements RoleDomain {
   public id!: number
   public name!: string
   public description!: Text
   public readonly createdAt!: Date
 
-  public static associate (models: any) {
+  public static associate (models: any): void {
     // associate
     this.hasMany(models.User, {
       as: 'users',
@@ -45,7 +43,7 @@ class Role extends Model<RoleDomain, RoleCreationAttributes> implements RoleDoma
     })
   }
 
-  public static config (sequelize: any) {
+  public static config (sequelize: any): any {
     return {
       sequelize,
       tableName: ROLE_TABLE,

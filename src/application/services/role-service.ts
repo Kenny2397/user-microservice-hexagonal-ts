@@ -1,19 +1,17 @@
 import boom from '@hapi/boom'
 import { RoleRepository } from '../../domain/repositories/role-repository'
 import { Role } from '../../domain/models/role'
-import { CreateRoleDto } from '../dtos/role-dto'
+import { IRoleDTO } from '../dtos/role-dto'
 
 class RoleService {
-  private roleRepository: RoleRepository
+  private readonly roleRepository: RoleRepository
 
   constructor (roleRepository: RoleRepository) {
     this.roleRepository = roleRepository
   }
 
-  async createRole (roleDto: CreateRoleDto): Promise<Role> {
-    console.log('-' + roleDto.name)
+  async createRole (roleDto: IRoleDTO): Promise<Role> {
     const existingRole = await this.roleRepository.findByName(roleDto.name)
-    console.log('---' + existingRole)
     if (existingRole !== null) {
       throw boom.conflict('name already exists')
     }

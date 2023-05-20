@@ -2,17 +2,20 @@
     "env": {
         "browser": true,
         "commonjs": true,
-        "es2021": true
+        "es2021": true,
+        "node": true,
+        "jest": true
     },
     "extends": [
-        "plugin:@typescript-eslint/recommended",
-        "standard"
+        "./node_modules/ts-standard/eslintrc.json"
     ],
     "overrides": [
     ],
     "parserOptions": {
-        "ecmaVersion": "latest"
+        "ecmaVersion": 2021,
+        "project": "./tsconfig.json"
     },
     "rules": {
+        "@typescript-eslint/no-misused-promises": "off"
     }
 }

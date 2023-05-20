@@ -3,7 +3,7 @@ import config from '../../config'
 import { Request, Response, NextFunction } from 'express'
 // const models = require('./../libs/sequelize')
 
-export function checkApiKey (req: Request, _res: Response, next: NextFunction) {
+export function checkApiKey (req: Request, _res: Response, next: NextFunction): any {
   const apiKey = req.headers.api
   if (apiKey === config.jwtSecret) {
     next()

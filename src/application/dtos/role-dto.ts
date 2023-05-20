@@ -1,11 +1,7 @@
-export interface RoleDto {
-  id: number;
-  name: string;
-  description: Text;
-  createdAt: Date;
-}
 
-export interface CreateRoleDto {
-  name: string;
-  description: Text;
+export interface IRoleDTO {
+  id?: number
+  name: string
+  description: Text
+  createdAt?: Date
 }

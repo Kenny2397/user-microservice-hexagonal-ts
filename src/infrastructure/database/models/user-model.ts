@@ -1,11 +1,9 @@
-import { Model, DataTypes, Optional } from 'sequelize'
+import { Model, DataTypes } from 'sequelize'
 import { User as UserDomain } from './../../../domain/models/user'
 
 import { ROLE_TABLE } from './role-model'
 
 export const USER_TABLE = 'users'
-
-export type UserCreationAttributes = Optional<UserDomain, 'id'>
 
 export const UserSchema = {
   id: {
@@ -64,7 +62,7 @@ export const UserSchema = {
   }
 }
 
-class User extends Model<UserDomain, UserCreationAttributes> implements UserDomain {
+class User extends Model<UserDomain, UserDomain> implements UserDomain {
   public id!: number
   public name!: string
   public lastName!: string
@@ -75,14 +73,14 @@ class User extends Model<UserDomain, UserCreationAttributes> implements UserDoma
   public roleId!: number
   public readonly createdAt!: Date
 
-  static associate (models: any) {
+  static associate (models: any): void {
     // associate
     this.belongsTo(models.Role, {
       as: 'role'
     })
   }
 
-  static config (sequelize: any) {
+  static config (sequelize: any): any {
     return {
       sequelize,
       tableName: USER_TABLE,

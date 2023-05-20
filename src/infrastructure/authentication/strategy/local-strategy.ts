@@ -16,8 +16,8 @@ const LocalStrategy = new Strategy(
           email: userEmail
         }
       })
-      console.log(user)
-      if (!user) {
+      // verificar
+      if (!(user instanceof UserService)) {
         done(boom.unauthorized(), false)
       }
       const isMatch = await bcrypt.compare(userPassword, user.password)

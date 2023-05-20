@@ -5,7 +5,7 @@ import { CreateUser } from './../interfaces/dtos/create-user'
 // import { roles } from '../../../shared/constants/roles'
 
 class UserController {
-  private userService: UserService
+  private readonly userService: UserService
 
   constructor (userService: UserService) {
     this.userService = userService
@@ -40,9 +40,28 @@ class UserController {
         phone,
         email,
         password,
-        roleId: 4
+        roleId: 2
       }
       const user = await this.userService.createOwner(userDto)
+      res.status(200).json(user)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async createEmployee (req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { name, lastName, identifier, phone, email, password } = req.body
+      const userDto: CreateUser = {
+        name,
+        lastName,
+        identifier,
+        phone,
+        email,
+        password,
+        roleId: 3
+      }
+      const user = await this.userService.createEmployee(userDto)
       res.status(200).json(user)
     } catch (error) {
       next(error)
