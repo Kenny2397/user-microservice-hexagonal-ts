@@ -4,6 +4,9 @@ dependencies:
   '@hapi/boom':
     specifier: ^10.0.1
     version: 10.0.1
+  '@types/jsonwebtoken':
+    specifier: ^9.0.2
+    version: 9.0.2
   bcrypt:
     specifier: ^5.1.0
     version: 5.1.0
@@ -16,6 +19,9 @@ dependencies:
   express:
     specifier: ^4.18.2
     version: 4.18.2
+  jsonwebtoken:
+    specifier: ^9.0.0
+    version: 9.0.0
   mysql2:
     specifier: ^3.3.1
     version: 3.3.1
@@ -342,7 +348,6 @@ packages:
     resolution: {integrity: sha512-drE6uz7QBKq1fYqqoFKTDRdFCPHd5TCub75BM+D+cMx7NU9hUz7SESLfC2fSCXVFMO5Yj8sOWHuGqPgjc+fz0Q==}
     dependencies:
       '@types/node': 20.2.1
-    dev: true
 
   /@types/lodash@4.14.194:
     resolution: {integrity: sha512-r22s9tAS7imvBt2lyHC9B8AGwWnXaYb1tY09oyLkXDs4vArpYJzw09nj8MLx5VfciBPGIb+ZwG0ssYnEPJxn/g==}

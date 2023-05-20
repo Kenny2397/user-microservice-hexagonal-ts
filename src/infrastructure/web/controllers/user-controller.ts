@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
+import jwt from 'jsonwebtoken'
+import config from './../../../config'
 import UserService from './../../../application/services/user-service'
-
 import { CreateUser } from './../interfaces/dtos/create-user'
 // import { roles } from '../../../shared/constants/roles'
 
@@ -63,6 +64,23 @@ class UserController {
       }
       const user = await this.userService.createEmployee(userDto)
       res.status(200).json(user)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async login (req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const user: any = req.user
+      const payload = {
+        sub: user?.id,
+        roleId: user?.roleId
+      }
+      const token = jwt.sign(payload, config.jwtSecret)
+      res.status(200).json({
+        user,
+        token
+      })
     } catch (error) {
       next(error)
     }

@@ -8,6 +8,7 @@ import { RoleRepository } from '../../../domain/repositories/role-repository'
 import RoleRepositoryImpl from '../../database/repositories/sequelize-role-repository'
 import { checkRoles } from '../../middlewares/auth-handler'
 import { roles } from '../../../shared/constants/roles'
+import passport from './../../authentication/index'
 
 const userRepository: UserRepository = new UserRepositoryImpl()
 const roleRepository: RoleRepository = new RoleRepositoryImpl()
@@ -62,5 +63,7 @@ router.post('/owner',
 router.post('/employee',
 // checkRoles(roles.ADMIN),
   userController.createEmployee.bind(userController))
+
+router.post('/login', passport.authenticate('local', { session: false }), userController.login.bind(userController))
 
 export default router

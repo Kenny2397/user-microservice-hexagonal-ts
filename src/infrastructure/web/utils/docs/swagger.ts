@@ -21,6 +21,7 @@ const swaggerDefinition = {
     `,
     termsOfService: 'http://swagger.io/terms/',
     contact: {
+      name: 'Kenny Luque',
       email: 'kenny.luque@pragma.com.co'
     },
     license: {

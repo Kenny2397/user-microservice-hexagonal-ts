@@ -71,6 +71,28 @@ class UserService {
     const createdUser = await this.userRepository.create(user)
     return createdUser
   }
+
+  // async login (email: string, password: string): Promise<User> {
+  //   const user = await this.userRepository.findByEmail(email)
+  //   if (user == null) {
+  //     throw boom.notFound('User not found')
+  //   }
+
+  //   const isPasswordValid = await user.isPasswordValid(password)
+  //   if (!isPasswordValid) {
+  //     throw boom.unauthorized('Invalid password')
+  //   }
+
+  //   return user
+  // }
+  async findByEmail (email: string): Promise<User> {
+    const user = await this.userRepository.findByEmail(email)
+    if (user == null) {
+      throw boom.notFound('User not found')
+    }
+
+    return user
+  }
 }
 
 export default UserService
