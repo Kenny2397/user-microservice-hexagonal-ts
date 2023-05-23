@@ -172,6 +172,36 @@ router.post('/employee', passport.authenticate('jwt', { session: false }), check
  */
 router.post('/client', userController.createClient.bind(userController))
 
+/**
+ * @openapi
+ * /api/v1/users/login:
+ *    post:
+ *      tags:
+ *        - Login
+ *      summary: "Login user"
+ *      description: Iniciar sesion a un nuevo usuario y obtener el token de sesión
+ *      requestBody:
+ *          content:
+ *            application/json:
+ *              schema:
+ *                 $ref: "#/components/schemas/Login"
+ *      responses:
+ *        '200':
+ *          description: Successful operation
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: "#/components/schemas/Login"
+ *            application/xml:
+ *              schema:
+ *                $ref: '#/components/schemas/Login'
+ *        '400':
+ *          description: "Error: Bad Request"
+ *        '401':
+ *          description: "Error: Unauthorized"
+ *        '409':
+ *          description: "Error: Conflict"
+ */
 router.post('/login', passport.authenticate('local', { session: false }), userController.login.bind(userController))
 
 export default router
