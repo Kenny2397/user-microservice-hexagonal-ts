@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken'
 import config from './../../../config'
 import { UserService } from './../../../application/services/user-service'
 import { CreateUser } from './../interfaces/dtos/create-user'
+import { ROLES } from '../utils/shared/constants'
 // import { roles } from '../../../shared/constants/roles'
 
 export class UserController {
@@ -33,6 +34,7 @@ export class UserController {
   }
 
   async createOwner (req: Request, res: Response, next: NextFunction): Promise<void> {
+    console.log('controller')
     try {
       const { name, lastName, identifier, phone, email, password } = req.body
       const userDto: CreateUser = {
@@ -42,7 +44,7 @@ export class UserController {
         phone,
         email,
         password,
-        roleId: 2
+        roleId: ROLES.OWNER
       }
       const user = await this.userService.createOwner(userDto)
       res.status(200).json(user)
@@ -61,9 +63,28 @@ export class UserController {
         phone,
         email,
         password,
-        roleId: 3
+        roleId: ROLES.EMPLOYEE
       }
       const user = await this.userService.createEmployee(userDto)
+      res.status(200).json(user)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async createClient (req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { name, lastName, identifier, phone, email, password } = req.body
+      const userDto: CreateUser = {
+        name,
+        lastName,
+        identifier,
+        phone,
+        email,
+        password,
+        roleId: ROLES.CLIENT
+      }
+      const user = await this.userService.createClient(userDto)
       res.status(200).json(user)
     } catch (error) {
       next(error)

@@ -67,7 +67,28 @@ export class UserService {
     const hashedPassword = await hashPassword(userDto.password)
     const userMapper: IUserDTO = {
       ...userDto,
-      // roleId: existingRole.id,
+      roleId: existingRole.id,
+      password: hashedPassword
+    }
+    const createdUser = await this.userRepository.save(userMapper)
+    return createdUser
+  }
+
+  async createClient (userDto: IUserDTO): Promise<UserModel> {
+    const existingUser = await this.userRepository.findByEmail(userDto.email)
+    if (existingUser != null) {
+      throw boom.conflict('Email already exists')
+    }
+
+    const existingRole = await this.roleRepository.findByName('Client')
+    if (existingRole == null) {
+      throw boom.conflict('Role does not exist')
+    }
+
+    const hashedPassword = await hashPassword(userDto.password)
+    const userMapper: IUserDTO = {
+      ...userDto,
+      roleId: existingRole.id,
       password: hashedPassword
     }
     const createdUser = await this.userRepository.save(userMapper)
