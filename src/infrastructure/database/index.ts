@@ -1,5 +1,5 @@
-import User, { UserSchema } from './models/user-model'
-import Role, { RoleSchema } from './models/role-model'
+import { User, UserSchema } from './models/user-model'
+import { Role, RoleSchema } from './models/role-model'
 
 export function setupModels (sequelize: any): void {
   Role.init(RoleSchema, Role.config(sequelize))

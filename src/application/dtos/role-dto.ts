@@ -2,6 +2,6 @@
 export interface IRoleDTO {
   id?: number
   name: string
-  description: Text
+  description: string
   createdAt?: Date
 }

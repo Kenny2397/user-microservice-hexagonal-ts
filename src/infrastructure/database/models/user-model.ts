@@ -1,6 +1,6 @@
-import { Model, DataTypes } from 'sequelize'
-import { User as UserDomain } from './../../../domain/models/user'
-
+import { Model, DataTypes, Optional } from 'sequelize'
+// import { User as UserDomain } from './../../../domain/models/user'
+import { UserEntity } from '../../entities/user-entity'
 import { ROLE_TABLE } from './role-model'
 
 export const USER_TABLE = 'users'
@@ -62,16 +62,32 @@ export const UserSchema = {
   }
 }
 
-class User extends Model<UserDomain, UserDomain> implements UserDomain {
-  public id!: number
-  public name!: string
-  public lastName!: string
-  public identifier!: bigint
-  public phone!: string
-  public email!: string
-  public password!: string
-  public roleId!: number
-  public readonly createdAt!: Date
+type UserCreationAttributes = Optional<UserEntity, 'id'>
+
+// export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+export class User extends Model<UserEntity, UserCreationAttributes> {
+  declare id: number
+  declare name: string
+  declare lastName: string
+  declare identifier: number
+  declare phone: string
+  declare email: string
+  declare password: string
+  declare roleId: number
+  declare createdAt: Date
+
+  // constructor (user: any) {
+  //   super()
+  //   this.id = user.id
+  //   this.name = user.name
+  //   this.lastName = user.lastName
+  //   this.identifier = user.identifier
+  //   this.phone = user.phone
+  //   this.email = user.email
+  //   this.password = user.password
+  //   this.roleId = user.roleId
+  //   this.createdAt = user.createdAt
+  // }
 
   static associate (models: any): void {
     // associate
@@ -89,5 +105,3 @@ class User extends Model<UserDomain, UserDomain> implements UserDomain {
     }
   }
 }
-
-export default User

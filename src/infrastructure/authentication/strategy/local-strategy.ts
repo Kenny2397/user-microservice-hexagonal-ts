@@ -3,9 +3,9 @@ import bcrypt from 'bcrypt'
 import boom from '@hapi/boom'
 
 // import UserService from '../../../application/services/user-service'
-import { UserRepository } from '../../../domain/repositories/user-repository'
-import UserRepositoryImpl from './../../database/repositories/sequelize-user-repository'
-const userRepository: UserRepository = new UserRepositoryImpl()
+import { IUserRepository } from '../../../domain/repositories/iuser-repository'
+import { SequelizeUserRepository } from './../../database/repositories/sequelize-user-repository'
+const userRepository: IUserRepository = new SequelizeUserRepository()
 
 const LocalStrategy = new Strategy(
   {

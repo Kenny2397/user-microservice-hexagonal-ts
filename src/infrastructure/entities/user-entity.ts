@@ -1,8 +1,8 @@
-export interface User {
+export interface UserEntity {
   id?: number
   name: string
   lastName: string
-  identifier: bigint
+  identifier: number
   phone: string
   email: string
   password: string

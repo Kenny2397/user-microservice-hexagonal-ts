@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
 import config from './../../../config'
-import UserService from './../../../application/services/user-service'
+import { UserService } from './../../../application/services/user-service'
 import { CreateUser } from './../interfaces/dtos/create-user'
 // import { roles } from '../../../shared/constants/roles'
 
-class UserController {
+export class UserController {
   private readonly userService: UserService
 
   constructor (userService: UserService) {
@@ -13,9 +13,10 @@ class UserController {
   }
 
   async createUser (req: Request, res: Response, next: NextFunction): Promise<void> {
+    console.log('controller')
     try {
       const { name, lastName, identifier, phone, email, password, roleId } = req.body
-      const userDto: CreateUser = {
+      const userMapper: CreateUser = {
         name,
         lastName,
         identifier,
@@ -24,7 +25,7 @@ class UserController {
         password,
         roleId
       }
-      const user = await this.userService.createUser(userDto)
+      const user = await this.userService.createUser(userMapper)
       res.json(user)
     } catch (error) {
       next(error)
@@ -86,5 +87,3 @@ class UserController {
     }
   }
 }
-
-export default UserController

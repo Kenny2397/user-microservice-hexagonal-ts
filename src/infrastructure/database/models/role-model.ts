@@ -1,5 +1,5 @@
 import { Model, DataTypes } from 'sequelize'
-import { Role as RoleDomain } from './../../../domain/models/role'
+import { RoleEntity } from './../../entities/role-entity'
 export const ROLE_TABLE = 'roles'
 
 export const RoleSchema = {
@@ -16,7 +16,7 @@ export const RoleSchema = {
   },
   description: {
     allowNull: false,
-    type: DataTypes.TEXT
+    type: DataTypes.STRING
   },
   createdAt: {
     allowNull: false,
@@ -25,11 +25,12 @@ export const RoleSchema = {
     defaultValue: DataTypes.NOW
   }
 }
+type RoleCreationAttributes = Omit<RoleEntity, 'id' | 'createdAt'>
 
-class Role extends Model<RoleDomain, RoleDomain> implements RoleDomain {
+export class Role extends Model<RoleEntity, RoleCreationAttributes> {
   public id!: number
   public name!: string
-  public description!: Text
+  public description!: string
   public readonly createdAt!: Date
 
   public static associate (models: any): void {
@@ -52,5 +53,3 @@ class Role extends Model<RoleDomain, RoleDomain> implements RoleDomain {
     }
   }
 }
-
-export default Role

@@ -1,26 +1,26 @@
-import User from './../models/user-model'
-import { IUserDTO } from '../../../application/dtos/user-dto'
-import { User as UserDomain } from '../../../domain/models/user'
-import { UserRepository } from './../../../domain/repositories/user-repository'
+import { User } from './../models/user-model'
+// import { IUserDTO } from '../../../application/dtos/user-dto'
+import { UserModel } from '../../../domain/models/iuser-model'
+import { IUserRepository } from '../../../domain/repositories/iuser-repository'
 
-class SequelizeUserRepository implements UserRepository {
-  public async create (payload: IUserDTO): Promise<UserDomain> {
+export class SequelizeUserRepository implements IUserRepository {
+  public async save (payload: UserModel): Promise<UserModel> {
     return await User.create(payload)
   }
 
-  public async findAll (): Promise<UserDomain[]> {
+  public async findAll (): Promise<UserModel[]> {
     return await User.findAll()
   }
 
-  public async findById (id: number): Promise<UserDomain | null> {
+  public async findById (id: number): Promise<UserModel | null> {
     return await User.findByPk(id)
   }
 
-  public async findByEmail (email: string): Promise<UserDomain | null> {
+  public async findByEmail (email: string): Promise<UserModel | null> {
     return await User.findOne({ where: { email } })
   }
 
-  public async update (id: number, payload: IUserDTO): Promise<any> {
+  public async update (id: number, payload: UserModel): Promise<any> {
     return await User.update(payload, { where: { id } })
   }
 
@@ -28,5 +28,3 @@ class SequelizeUserRepository implements UserRepository {
     await User.destroy({ where: { id } })
   }
 }
-
-export default SequelizeUserRepository
