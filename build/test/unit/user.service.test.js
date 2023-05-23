@@ -18,8 +18,7 @@
 //   name: 'test',
 //   lastName: 'test',
 //   identifier: 123456789,
-//   phone: '123456789',
-//   email: 'email@test.com',
+//   phone: '123456789',//   email: 'email@test.com',
 //   password: 'password',
 //   roleId: 1
 // }

@@ -8,7 +8,7 @@ const swagger_jsdoc_1 = __importDefault(require("swagger-jsdoc"));
 const swaggerDefinition = {
     openapi: '3.0.0',
     info: {
-        title: 'REST API Plaza de comidas',
+        title: 'REST API Plaza de comidas User Microservice',
         version: '2.0.0',
         description: `You have found the Plazoleta Documentation! These pages are dedicated to showing you all the ways you can use Plazoleta's products. Whether you're looking to create new restaurants 
       for your new customers or employees, receive automatic notifications related to your order statuses, view restaurants and manage the preparation of dishes, Plazoleta has something for you.
@@ -22,7 +22,7 @@ const swaggerDefinition = {
     `,
         termsOfService: 'http://swagger.io/terms/',
         contact: {
-            name: 'Kenny Luque',
+            // name: 'Kenny Luque',
             email: 'kenny.luque@pragma.com.co'
         },
         license: {
@@ -32,7 +32,7 @@ const swaggerDefinition = {
     },
     servers: [
         {
-            url: 'http://localhost:3000'
+            url: 'http://localhost:4000'
         }
     ],
     contact: {

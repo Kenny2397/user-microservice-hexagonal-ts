@@ -56,16 +56,15 @@ project
 │   │   ├── services
 │   │   │   ├── user-service.ts
 │   │   │   └── role-service.ts
-│   │   │   └── auth-service.ts
 │   │   └── errors
 │   │       ├── custom-error.ts
 │   ├── domain
 │   │   ├── models
-│   │   │   ├── user.ts
-│   │   │   └── role.ts 
+│   │   │   ├── iuser-model.ts
+│   │   │   └── irole-model.ts 
 │   │   ├── repositories
-│   │   │   ├── user-repository.ts
-│   │   │   └── role-repository.ts
+│   │   │   ├── iuser-repository.ts
+│   │   │   └── irole-repository.ts
 │   ├── infrastructure
 │   │   ├── database
 │   │   │   ├── index.ts
@@ -75,38 +74,38 @@ project
 │   │   │   ├── repositories
 │   │   │   │   ├── sequelize-user-repository.ts
 │   │   │   │   └── sequelize-role-repository.ts
+│   │   ├── encryption
+│   │   │   ├── hash-service.ts
+│   │   ├── libs
+│   │   │   ├── sequelize.ts
+│   │   ├── entities
+│   │   │   ├── user-entity.ts
+│   │   │   └── role-entity.ts
 │   │   ├── authentication
 │   │   │   ├── jwt-service.ts
 │   │   │   ├── passport-config.ts
-│   │   │   └── local-strategy.ts   
+│   │   │   └── local-strategy.ts
+│   │   ├── middlewares
+│   │   │   ├── error-handler.ts
+│   │   │   └── auth-middleware.ts
 │   │   └── web
 │   │       ├── controllers
 │   │       │   ├── user-controller.ts
-│   │       │   └── role-controller.ts
+│   │       │   ├── role-controller.ts
 │   │       │   └── auth-controller.ts
-│   │       ├── middlewares
-│   │       │   ├── error-handler.ts
-│   │       │   └── auth-middleware.ts
+│   │       ├── dependencies
+│   │       │   ├── container.ts
 │   │       ├── routes
 │   │       │   ├── user-routes.ts
-│   │       │   └── role-routes.ts
-│   │       │   └── auth-routes.ts
+│   │       │   ├── role-routes.ts
 │   │       │   └── index.ts
-│   │       ├── server.ts
+│   │       ├── utils
+│   │       │   ├── docs
+│   │       │   │   └── swagger.ts
+│   │       │   └── shared
+│   │       │       └── constants.ts
 │   │       ├── app.ts
 │   │       └── index.ts
-│   ├── shared
-│   │   ├── constants
-│   │   │   ├── constants.ts
-│   │   │   └── roles.ts
-│   │   ├── interfaces
-│   │   │   ├── user-interface.ts
-│   │   │   └── role-interface.ts
-│   │   ├── utils
-│   │   │   ├── logger.ts
-│   │   │   └── hash.ts
-│   ├── index.ts
-│   └── ...
 ├── tests
 │   ├── unit
 │   ├── integration
@@ -116,7 +115,3 @@ project
 ├── tsconfig.json
 └── ...
 ```
-
-
-TO-DO:
-[] Que es inversion de dependencias arquitectura hexagonal

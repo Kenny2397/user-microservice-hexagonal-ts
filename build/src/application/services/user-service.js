@@ -16,8 +16,9 @@ exports.UserService = void 0;
 const boom_1 = __importDefault(require("@hapi/boom"));
 const hash_service_1 = require("../../infrastructure/encryption/hash-service");
 class UserService {
-    constructor(userService) {
+    constructor(userService, roleService) {
         this.userRepository = userService;
+        this.roleRepository = roleService;
     }
     createUser(userDto) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -38,14 +39,12 @@ class UserService {
             if (existingUser != null) {
                 throw boom_1.default.conflict('Email already exists');
             }
-            // const existingRole = await this.userService.findByName('Owner')
-            // if (existingRole == null) {
-            //   throw boom.conflict('Role does not exist')
-            // }
+            const existingRole = yield this.roleRepository.findByName('Owner');
+            if (existingRole == null) {
+                throw boom_1.default.conflict('Role does not exist');
+            }
             const hashedPassword = yield (0, hash_service_1.hashPassword)(userDto.password);
-            const userMapper = Object.assign(Object.assign({}, userDto), { 
-                // roleId: existingRole.id,
-                password: hashedPassword });
+            const userMapper = Object.assign(Object.assign({}, userDto), { roleId: existingRole.id, password: hashedPassword });
             const createdUser = yield this.userRepository.save(userMapper);
             return createdUser;
         });
@@ -56,29 +55,45 @@ class UserService {
             if (existingUser != null) {
                 throw boom_1.default.conflict('Email already exists');
             }
-            // const existingRole = await this.roleRepository.findByName('Employee')
-            // if (existingRole == null) {
-            //   throw boom.conflict('Role does not exist')
-            // }
+            const existingRole = yield this.roleRepository.findByName('Employee');
+            if (existingRole == null) {
+                throw boom_1.default.conflict('Role does not exist');
+            }
             const hashedPassword = yield (0, hash_service_1.hashPassword)(userDto.password);
-            const userMapper = Object.assign(Object.assign({}, userDto), { 
-                // roleId: existingRole.id,
-                password: hashedPassword });
+            const userMapper = Object.assign(Object.assign({}, userDto), { roleId: existingRole.id, password: hashedPassword });
             const createdUser = yield this.userRepository.save(userMapper);
             return createdUser;
         });
     }
-    // async login (email: string, password: string): Promise<User> {
-    //   const user = await this.userRepository.findByEmail(email)
-    //   if (user == null) {
-    //     throw boom.notFound('User not found')
-    //   }
-    //   const isPasswordValid = await user.isPasswordValid(password)
-    //   if (!isPasswordValid) {
-    //     throw boom.unauthorized('Invalid password')
-    //   }
-    //   return user
-    // }
+    createClient(userDto) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const existingUser = yield this.userRepository.findByEmail(userDto.email);
+            if (existingUser != null) {
+                throw boom_1.default.conflict('Email already exists');
+            }
+            const existingRole = yield this.roleRepository.findByName('Client');
+            if (existingRole == null) {
+                throw boom_1.default.conflict('Role does not exist');
+            }
+            const hashedPassword = yield (0, hash_service_1.hashPassword)(userDto.password);
+            const userMapper = Object.assign(Object.assign({}, userDto), { roleId: existingRole.id, password: hashedPassword });
+            const createdUser = yield this.userRepository.save(userMapper);
+            return createdUser;
+        });
+    }
+    login(email, _password) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const user = yield this.userRepository.findByEmail(email);
+            if (user == null) {
+                throw boom_1.default.notFound('User not found');
+            }
+            // const isPasswordValid = await user.isPasswordValid(password)
+            // if (!isPasswordValid) {
+            //   throw boom.unauthorized('Invalid password')
+            // }
+            return user;
+        });
+    }
     findByEmail(email) {
         return __awaiter(this, void 0, void 0, function* () {
             const user = yield this.userRepository.findByEmail(email);

@@ -9,7 +9,8 @@ const routes_1 = __importDefault(require("./infrastructure/web/routes"));
 const error_handler_1 = require("./infrastructure/middlewares/error-handler");
 const app = (0, express_1.default)();
 const allowedOrigins = [
-    'http://localhost:3000'
+    'http://localhost:3000',
+    'http://localhost:4000'
 ];
 const allowedHeaders = [
     'Content-Type', 'Authorization', 'Origin', 'X-Requested-With', 'Accept',

@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const config_1 = __importDefault(require("./../../../config"));
+const constants_1 = require("../utils/shared/constants");
 // import { roles } from '../../../shared/constants/roles'
 class UserController {
     constructor(userService) {
@@ -44,6 +45,7 @@ class UserController {
     }
     createOwner(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log('controller');
             try {
                 const { name, lastName, identifier, phone, email, password } = req.body;
                 const userDto = {
@@ -53,7 +55,7 @@ class UserController {
                     phone,
                     email,
                     password,
-                    roleId: 2
+                    roleId: constants_1.ROLES.OWNER
                 };
                 const user = yield this.userService.createOwner(userDto);
                 res.status(200).json(user);
@@ -74,9 +76,30 @@ class UserController {
                     phone,
                     email,
                     password,
-                    roleId: 3
+                    roleId: constants_1.ROLES.EMPLOYEE
                 };
                 const user = yield this.userService.createEmployee(userDto);
+                res.status(200).json(user);
+            }
+            catch (error) {
+                next(error);
+            }
+        });
+    }
+    createClient(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { name, lastName, identifier, phone, email, password } = req.body;
+                const userDto = {
+                    name,
+                    lastName,
+                    identifier,
+                    phone,
+                    email,
+                    password,
+                    roleId: constants_1.ROLES.CLIENT
+                };
+                const user = yield this.userService.createClient(userDto);
                 res.status(200).json(user);
             }
             catch (error) {

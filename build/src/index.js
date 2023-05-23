@@ -32,7 +32,7 @@ const PORT = (_a = config_1.default.port) !== null && _a !== void 0 ? _a : 3000;
 app_1.default.listen(PORT, () => {
     sequelize_1.default.authenticate()
         .then(() => __awaiter(void 0, void 0, void 0, function* () {
-        yield sequelize_1.default.sync({ force: true });
+        yield sequelize_1.default.sync({ force: false });
         console.info('\n====================== 🚀 Server running  =======================');
         console.info(`INFO:     http://localhost:${PORT} (Press CTRL+C to quit)`);
         console.info('INFO:     Waiting for application startup ...');

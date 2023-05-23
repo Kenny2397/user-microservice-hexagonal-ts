@@ -214,7 +214,7 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-
+build
 node_modules
 mysql_data
 postgres_data
