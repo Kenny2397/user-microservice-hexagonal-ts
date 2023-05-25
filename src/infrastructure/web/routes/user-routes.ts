@@ -46,7 +46,9 @@ const router = Router()
  *      security:
  *        - bearerAuth: []
  */
-router.post('/', passport.authenticate('jwt', { session: false }), checkRoles(ROLES.ADMIN), userController.createUser.bind(userController))
+router.post('/',
+  passport.authenticate('jwt', { session: false }), checkRoles(ROLES.ADMIN),
+  userController.createUser.bind(userController))
 
 /**
  * @openapi
@@ -204,4 +206,5 @@ router.post('/client', userController.createClient.bind(userController))
  */
 router.post('/login', passport.authenticate('local', { session: false }), userController.login.bind(userController))
 
+router.get('/:id', userController.getUserById.bind(userController))
 export default router

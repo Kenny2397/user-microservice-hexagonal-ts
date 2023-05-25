@@ -27,7 +27,7 @@ export class UserController {
         roleId
       }
       const user = await this.userService.createUser(userMapper)
-      res.json(user)
+      res.status(201).json(user)
     } catch (error) {
       next(error)
     }
@@ -103,6 +103,16 @@ export class UserController {
         user,
         token
       })
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getUserById (req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { id } = req.params
+      const user = await this.userService.getUserById(Number(id))
+      res.status(200).json(user)
     } catch (error) {
       next(error)
     }

@@ -1,5 +1,4 @@
 import { Model, DataTypes, Optional } from 'sequelize'
-// import { User as UserDomain } from './../../../domain/models/user'
 import { UserEntity } from '../../entities/user-entity'
 import { ROLE_TABLE } from './role-model'
 

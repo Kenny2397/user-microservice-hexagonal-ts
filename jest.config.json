@@ -7,6 +7,10 @@
     "!**/node_modules/**",
     "!**/vendor/**"
   ],
+  "testPathIgnorePatterns": [
+    "/node_modules/",
+    "/build/"
+  ],
   "coveragePathIgnorePatterns": [
     "/node_modules/",
     "/build"

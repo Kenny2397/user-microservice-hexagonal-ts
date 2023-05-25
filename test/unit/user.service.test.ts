@@ -1,9 +1,9 @@
-// import UserService from '../../src/application/services/user-service'
-// import { UserRepository } from '../../src/domain/repositories/user-repository'
-// import { RoleRepository } from '../../src/domain/repositories/role-repository'
-// import UserRepositoryImpl from '../../src/infrastructure/database/repositories/sequelize-user-repository'
-// import RoleRepositoryImpl from '../../src/infrastructure/database/repositories/sequelize-role-repository'
-
+// import { UserService } from '../../src/application/services/user-service'
+// import { IUserRepository } from '../../src/domain/repositories/iuser-repository'
+// import { IRoleRepository } from '../../src/domain/repositories/irole-repository'
+import { SequelizeUserRepository } from '../../src/infrastructure/database/repositories/sequelize-user-repository'
+// import { SequelizeRoleRepository } from '../../src/infrastructure/database/repositories/sequelize-role-repository'
+import { UserModel } from '../../src/domain/models/iuser-model'
 // import { IUserDTO } from '../../src/application/dtos/user-dto'
 
 // const fakeUserInput: IUserDTO = {
@@ -19,7 +19,8 @@
 //   name: 'test',
 //   lastName: 'test',
 //   identifier: 123456789,
-//   phone: '123456789',//   email: 'email@test.com',
+//   phone: '123456789',
+//   email: 'email@test.com',
 //   password: 'password',
 //   roleId: 1
 // }
@@ -37,7 +38,6 @@
 // const SequelizeStub = {
 //   create: spyCreate,
 //   findByEmail: spyFindByEmail
-
 // }
 
 // jest.mock('./../../src/infrastructure/libs/sequelize.ts', () => {
@@ -50,8 +50,8 @@
 //   let userService: UserService
 
 //   beforeEach(() => {
-//     const userRepository: UserRepository = new UserRepositoryImpl()
-//     const roleRepository: RoleRepository = new RoleRepositoryImpl()
+//     const userRepository: IUserRepository = new SequelizeUserRepository()
+//     const roleRepository: IRoleRepository = new SequelizeRoleRepository()
 //     userService = new UserService(userRepository, roleRepository)
 
 //     jest.clearAllMocks()
@@ -93,3 +93,44 @@
 //     })
 //   })
 // })
+
+// Tests that a user can be saved successfully.
+it('test_save_user_successfully', async () => {
+  // Arrange
+  const userRepo = new SequelizeUserRepository()
+  const user = new UserModel({
+    id: 1,
+    name: 'John',
+    lastName: 'Doe',
+    identifier: 123456789,
+    phone: '1234567890',
+    email: 'johndoe@example.com',
+    password: 'password123'
+  })
+
+  // Act
+  const savedUser = await userRepo.save(user)
+
+  // Assert
+  expect(savedUser).toBeDefined()
+  expect(savedUser.id).toBeDefined()
+  expect(savedUser.name).toBe(user.name)
+  expect(savedUser.lastName).toBe(user.lastName)
+  expect(savedUser.identifier).toBe(user.identifier)
+  expect(savedUser.phone).toBe(user.phone)
+  expect(savedUser.email).toBe(user.email)
+  expect(savedUser.password).toBe(user.password)
+})
+
+// Tests that all users can be found successfully.
+it('test_find_all_users_successfully', async () => {
+  // Arrange
+  const userRepo = new SequelizeUserRepository()
+
+  // Act
+  const users = await userRepo.findAll()
+
+  // Assert
+  expect(users).toBeDefined()
+  expect(users.length).toBeGreaterThan(0)
+})

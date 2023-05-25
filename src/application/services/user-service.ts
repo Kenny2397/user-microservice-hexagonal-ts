@@ -38,7 +38,7 @@ export class UserService {
       throw boom.conflict('Email already exists')
     }
 
-    const existingRole = await this.roleRepository.findByName('Owner')
+    const existingRole = await this.roleRepository.findByName('Propietario')
     if (existingRole == null) {
       throw boom.conflict('Role does not exist')
     }
@@ -50,6 +50,7 @@ export class UserService {
       password: hashedPassword
     }
     const createdUser = await this.userRepository.save(userMapper)
+    // delete createdUser.password
     return createdUser
   }
 
@@ -59,7 +60,7 @@ export class UserService {
       throw boom.conflict('Email already exists')
     }
 
-    const existingRole = await this.roleRepository.findByName('Employee')
+    const existingRole = await this.roleRepository.findByName('Empleado')
     if (existingRole == null) {
       throw boom.conflict('Role does not exist')
     }
@@ -111,6 +112,15 @@ export class UserService {
 
   async findByEmail (email: string): Promise<UserModel> {
     const user = await this.userRepository.findByEmail(email)
+    if (user == null) {
+      throw boom.notFound('User not found')
+    }
+
+    return user
+  }
+
+  async getUserById (id: number): Promise<UserModel> {
+    const user = await this.userRepository.findById(id)
     if (user == null) {
       throw boom.notFound('User not found')
     }
