@@ -116,7 +116,3 @@ project
 ├── tsconfig.json
 └── ...
 ```
-
-
-TO-DO:
-[] Que es inversion de dependencias arquitectura hexagonal
